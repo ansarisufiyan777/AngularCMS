@@ -1,0 +1,18 @@
+<mat-toolbar class="toolbar" color="primary">  
+  <mat-toolbar-row>
+    <span>Wordpress</span>
+    <span class="spacer"></span>
+    <button mat-button>About</button>
+    <button mat-button>Contact</button>
+    <button class="menu-icon" mat-button [matMenuTriggerFor]="menu">
+      <mat-icon>more_vert</mat-icon>
+    </button>
+    <mat-menu #menu="matMenu">
+      <button mat-menu-item (click)="openPostDialog()">Add Post</button>
+    </mat-menu>
+  </mat-toolbar-row>
+</mat-toolbar>
+
+
+
+<router-outlet class="main-content"></router-outlet>
