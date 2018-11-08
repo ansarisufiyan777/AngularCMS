@@ -1,5 +1,11 @@
-<mat-toolbar class="toolbar" color="primary">  
+<mat-toolbar class="toolbar fixed" color="primary">
   <mat-toolbar-row>
+      <div *ngIf="showHideBackButton">
+    <button class="menu-icon" (click)="goBack()" mat-button>
+      <mat-icon>keyboard_backspace
+      </mat-icon>
+    </button>
+  </div>
     <span>Wordpress</span>
     <span class="spacer"></span>
     <button mat-button>About</button>
@@ -8,11 +14,21 @@
       <mat-icon>more_vert</mat-icon>
     </button>
     <mat-menu #menu="matMenu">
-      <button mat-menu-item (click)="openPostDialog()">Add Post</button>
+      <button mat-menu-item routerLink="/new-post">Add Post</button>
     </mat-menu>
   </mat-toolbar-row>
 </mat-toolbar>
 
 
-
-<router-outlet class="main-content"></router-outlet>
+<div 
+ fxLayoutAlign="space-around center" 
+     fxLayout
+     fxLayout.xs="column"
+     fxLayoutAlign="center"
+     fxLayoutGap="10px"
+     fxLayoutGap.xs="0"
+ style="margin-top: 2vh">
+ <div fxFlex="10%"></div>
+<router-outlet (activate)='onActivate($event)'  class="main-content"></router-outlet>
+<div fxFlex="10%"></div>
+</div>

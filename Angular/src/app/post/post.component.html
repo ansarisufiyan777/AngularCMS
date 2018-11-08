@@ -1,31 +1,53 @@
-<div class="card-deck-container">
+<div *ngIf="showContent; else elseBlock">
+  <div class="card-deck-container">
     <div *ngFor="let post of posts" class="card-item">
 
-  <mat-card    class="post-card">
-    <mat-card-header>
-      <div mat-card-avatar class="example-header-image">
-        <img class="profile-pic" src="{{post.poster_avatar}}">
-      </div>
-      <mat-card-title>{{post.title}}</mat-card-title>
-      <mat-card-subtitle>{{post.createdBy}}</mat-card-subtitle>
-    </mat-card-header>
-    <mat-card-content routerLink="/post" [queryParams]="{ id: post.post_id }" matRipple>
-      <img mat-card-image src="{{post.banner}}">
-      <p>
-        {{post.post_desc}}
-      </p>
-    </mat-card-content>
-    <mat-card-actions>
-      <button (click)="likePost(post)" mat-button>{{post.likes?post.likes:0}}
-        <mat-icon>thumb_up_alt</mat-icon>
-      </button>
-      <button mat-button (click)="dislikePost(post)">{{post.dislikes?post.dislikes:0}}
-        <mat-icon>thumb_down_alt</mat-icon>
-      </button>
-      <button mat-button (click)="openShareBottomSheet()">
-        <mat-icon>share</mat-icon>
-      </button>
-    </mat-card-actions>
-  </mat-card>
-</div> 
+      <mat-card class="post-card">
+        <mat-card-header>
+          <div mat-card-avatar class="example-header-image">
+            <img class="profile-pic" src="{{post.poster_avatar}}">
+          </div>
+          <mat-card-title>{{post.title}}</mat-card-title>
+          <mat-card-subtitle>{{post.createdBy}}</mat-card-subtitle>
+        </mat-card-header>
+        <mat-card-content routerLink="/post" [queryParams]="{ id: post.post_id }" matRipple>
+          <img mat-card-image src="{{post.banner}}">
+          <p>
+            {{post.post_desc}}
+          </p>
+        </mat-card-content>
+        <mat-card-actions>
+          <button (click)="likePost(post)" mat-button>{{post.likes?post.likes:0}}
+            <mat-icon>thumb_up_alt</mat-icon>
+          </button>
+          <button mat-button (click)="dislikePost(post)">{{post.dislikes?post.dislikes:0}}
+            <mat-icon>thumb_down_alt</mat-icon>
+          </button>
+          <button mat-button >{{post.views?post.views:0}}
+            <mat-icon>visibility</mat-icon>
+          </button>
+          <button mat-button (click)="openShareBottomSheet()">
+            <mat-icon>share</mat-icon>
+          </button>
+        </mat-card-actions>
+      </mat-card>
+    </div>
+  </div>
+  <mat-paginator [length]="posts.length" [pageSize]="pageSize" (page)="pageEvent = getPaginatorData($event)">
+  </mat-paginator>
 </div>
+<ng-template #elseBlock>
+  <div class="card-deck-container">
+    <div *ngFor="let t of [1,23,45,8,78,7,0,0,0,0,0]" class="card-item">
+      <mat-card class="post-card">
+        <div class="linear-background">
+          <div class="inter-draw"></div>
+          <div class="inter-crop"></div>
+          <div class="inter-right--top"></div>
+          <div class="inter-right--bottom"></div>
+
+        </div>
+      </mat-card>
+    </div>
+  </div>
+</ng-template>

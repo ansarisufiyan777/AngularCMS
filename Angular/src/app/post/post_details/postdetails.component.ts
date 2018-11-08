@@ -5,6 +5,7 @@ import { HttpService } from '../../utils/app.httpservice';
 import { Router, ActivatedRoute,ParamMap } from '@angular/router';
 import { switchMap } from 'rxjs/operators';
 import { PushService } from '../../utils/app.push_service';
+import { Title } from '@angular/platform-browser';
 @Component({
   selector: 'post-details',
   templateUrl: './postdetails.component.html',
@@ -13,8 +14,8 @@ import { PushService } from '../../utils/app.push_service';
 export class PostDetailsComponent implements OnInit {
   private post = {};
   private id :any;
-
-  constructor(private pushService: PushService,public snackBar: MatSnackBar,private httpService:HttpService,private bottomSheet: MatBottomSheet,private route: ActivatedRoute,
+  private tagValue = null;
+  constructor(private titleService: Title, private pushService: PushService,public snackBar: MatSnackBar,private httpService:HttpService,private bottomSheet: MatBottomSheet,private route: ActivatedRoute,
     private router: Router) { }
 
   ngOnInit() {
@@ -23,6 +24,11 @@ export class PostDetailsComponent implements OnInit {
       console.log(`Id of the selected post is ${this.id}`)
       this.httpService.getPost(this.id).subscribe(postData => {
         this.post = postData[0];
+        this.post['views'] = parseInt(this.post['views'])+1;
+        this.httpService.upsertPost(this.post).subscribe((res)=>{
+          console.log("Views incremented by "+ this.post['views']);
+        }) 
+        this.titleService.setTitle( this.post["title"] );
       });
     }else{
       this.snackBar.open("Post id is empty", "Ok", {
@@ -34,6 +40,7 @@ export class PostDetailsComponent implements OnInit {
         this.post = data;
       }
     });
+    
   }
 
 
@@ -54,5 +61,18 @@ export class PostDetailsComponent implements OnInit {
   openShareBottomSheet($event:any){
     this.bottomSheet.open(ShareBottomSheet);
   }
-
+  addTags($event:any){
+    if($event.target.value){
+      this.post['tags'] = this.post['tags']+","+$event.target.value;
+      this.httpService.upsertPost(this.post).subscribe(res=>{
+        console.log("tags added successfully")
+      })
+      this.tagValue = '';
+    }else{
+      this.snackBar.open("tag feild cannot be blank", "Ok", {
+        duration: 2000,
+      });
+    }
+    
+  }
 }

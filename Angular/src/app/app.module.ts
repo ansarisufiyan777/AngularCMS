@@ -1,6 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { MaterialAppModule } from './app.materials';
@@ -17,6 +16,8 @@ import { ShareBottomSheet } from './bottom_sheet/app.bottomsheet';
 import { MatBottomSheet } from '@angular/material';
 import { PostDetailsComponent } from './post/post_details/postdetails.component';
 import { LoginComponent } from './login/login.component';
+import {FlexLayoutModule} from '@angular/flex-layout';
+import { NewPostDialog } from './post/new_post/app.new_post';
 
 @NgModule({
   declarations: [
@@ -25,7 +26,8 @@ import { LoginComponent } from './login/login.component';
     PostDetailsComponent,
     LoginComponent,
     PostDialog,
-    ShareBottomSheet
+    ShareBottomSheet,
+    NewPostDialog
   ],
   imports: [
     BrowserModule,
@@ -35,7 +37,8 @@ import { LoginComponent } from './login/login.component';
     HttpClientModule,
     BrowserAnimationsModule,
     FormsModule,
-    NgxEditorModule 
+    NgxEditorModule,
+    FlexLayoutModule,
   ],
   entryComponents: [AppComponent, PostDialog,ShareBottomSheet],
   providers: [PushService,HttpService],

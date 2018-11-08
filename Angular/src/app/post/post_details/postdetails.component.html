@@ -1,18 +1,49 @@
-<mat-card class="post-card" >
-        <mat-card-header>
-          <div mat-card-avatar class="example-header-image"> <img class="profile-pic" src="{{post.poster_avatar}}"></div>
-          <mat-card-title>{{post.title}}</mat-card-title>
-          <mat-card-subtitle>{{post.createdBy}}</mat-card-subtitle>
-        </mat-card-header>
-        <mat-card-content>
-            <img mat-card-image src="{{post.banner}}">
-          <div [innerHTML]="post.postdata">
-           
-          </div>
-        </mat-card-content>
-        <mat-card-actions>
-          <button (click)="likePost(post)" mat-button>{{post.likes?post.likes:0}} <mat-icon>thumb_up_alt</mat-icon></button>
-          <button mat-button (click)="dislikePost(post)">{{post.dislikes?post.dislikes:0}}<mat-icon>thumb_down_alt</mat-icon></button>
-          <button mat-button (click)="openShareBottomSheet()"><mat-icon>share</mat-icon></button>
-        </mat-card-actions>
-      </mat-card>
+<div 
+ fxLayoutAlign="space-around center" 
+     fxLayout
+     fxLayout.xs="column"
+     fxLayoutAlign="center"
+     fxLayoutGap="10px"
+     fxLayoutGap.xs="0"
+ style="margin-top: 2vh">
+  <mat-card class="post-card" fxFlex="70%">
+    <mat-card-header>
+      <div mat-card-avatar class="example-header-image">
+        
+      </div>
+      <mat-card-title>{{post.title}}</mat-card-title>
+      <mat-card-subtitle>{{post.createdBy}}</mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content>
+      <img mat-card-image src="{{post.banner}}">
+      <div [innerHTML]="post.postdata">
+
+      </div>
+    </mat-card-content>
+    <mat-card-actions>
+      <button (click)="likePost(post)" mat-button>{{post.likes?post.likes:0}}
+        <mat-icon>thumb_up_alt</mat-icon>
+      </button>
+      <button mat-button (click)="dislikePost(post)">{{post.dislikes?post.dislikes:0}}
+        <mat-icon>thumb_down_alt</mat-icon>
+      </button>
+      
+      <button mat-button >{{post.views?post.views:0}}
+        <mat-icon>visibility</mat-icon>
+      </button>
+      <button mat-button (click)="openShareBottomSheet()">
+        <mat-icon>share</mat-icon>
+      </button>
+    </mat-card-actions>
+  </mat-card>
+  <div fxFlex="30%">
+    <mat-form-field>
+      <input matInput (keyup.enter)="addTags($event)" [(ngModel)]="tagValue" placeholder="Add tags">
+    </mat-form-field>
+    <div fxLayout>
+        <mat-chip-list>
+        <mat-chip *ngFor="let p of post.tags?.split(',')" class="remove-tag"> {{p}} <i class="fa fa-close"></i></mat-chip>
+        </mat-chip-list>
+    </div>
+  </div>
+</div>

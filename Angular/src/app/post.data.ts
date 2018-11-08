@@ -9,4 +9,6 @@ export interface PostData{
     poster_avatar:string;
     likes:string;
     dislikes:string;
+    tags:string;
+    views:string;
 }

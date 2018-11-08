@@ -51,25 +51,28 @@ app.get('/posts', function (req, res) {
 })
 
 app.post('/posts', function (req, res) {
+  var q;
   if(req.body.post_id){
-    var q = squel.update()
+    q = squel.update({ replaceSingleQuotes: true })
     .table("postdb.post")
     .set("post_desc", req.body.post_desc)
     .set("title", req.body.title)
     .set("postdata", req.body.postdata)
-    .set("poster_avatar", req.body.poster_avatar)
+    .set("poster_avatar", req.body.poster_avatar? req.body.poster_avatar : 'https://www.seoclerk.com/pics/319222-1IvI0s1421931178.png')
     .set("banner", req.body.banner)
     .set("likes", req.body.likes)
     .set("dislikes", req.body.dislikes)
+    .set("tags", req.body.tags)
+    .set("views", req.body.views)
     .where(`post_id = ${req.body.post_id}`)
     .toString();
   }else{
-    var q = squel.insert()
+    q = squel.insert({ replaceSingleQuotes: true })
     .into("postdb.post")
     .set("post_desc", req.body.post_desc)
     .set("title", req.body.title)
     .set("postdata", req.body.postdata)
-    .set("poster_avatar", req.body.poster_avatar)
+    .set("poster_avatar", req.body.poster_avatar? req.body.poster_avatar : 'https://www.seoclerk.com/pics/319222-1IvI0s1421931178.png')
     .set("banner", req.body.banner)
     .toString();
   }
@@ -79,7 +82,7 @@ app.post('/posts', function (req, res) {
       console.error('Error executing query', err.stack)
       res.end(err.stack.toString());
     }
-    console.log(result.rows);
+    //console.log(result.rows);
     res.end(JSON.stringify(result.rows));
     pushLastInsertedRecordToSocket(req.body.post_id);
   })

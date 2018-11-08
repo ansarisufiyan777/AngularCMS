@@ -1,12 +1,12 @@
-<h1 mat-dialog-title>New Post</h1>
-<div mat-dialog-content>
+<div fxFlex="15%"></div>
+ <mat-card>
   <mat-form-field>
     <input matInput [(ngModel)]="data.title" placeholder="Title">
   </mat-form-field>
   <mat-form-field>
     <input matInput [(ngModel)]="data.post_desc" placeholder="Description">
   </mat-form-field>
-  <app-ngx-editor [placeholder]="'Enter text here...'" [spellcheck]="true" [(ngModel)]="data.postdata"></app-ngx-editor>
+  <app-ngx-editor minHeight="300px" [placeholder]="'Enter text here...'" [spellcheck]="true" [(ngModel)]="data.postdata"></app-ngx-editor>
 
   <mat-form-field>
     <input matInput [(ngModel)]="data.banner" placeholder="Banner">
@@ -14,8 +14,8 @@
   <mat-form-field>
     <input matInput [(ngModel)]="data.poster_avatar" placeholder="Avatar">
   </mat-form-field>
-</div>
-<div mat-dialog-actions>
+
   <button mat-button (click)="onNoClick()">No Thanks</button>
   <button mat-button (click)="createPost()" cdkFocusInitial>Add</button>
-</div>
+</mat-card>
+<div fxFlex="15%"></div>
