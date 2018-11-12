@@ -61,18 +61,5 @@ export class PostDetailsComponent implements OnInit {
   openShareBottomSheet($event:any){
     this.bottomSheet.open(ShareBottomSheet);
   }
-  addTags($event:any){
-    if($event.target.value){
-      this.post['tags'] = this.post['tags']+","+$event.target.value;
-      this.httpService.upsertPost(this.post).subscribe(res=>{
-        console.log("tags added successfully")
-      })
-      this.tagValue = '';
-    }else{
-      this.snackBar.open("tag feild cannot be blank", "Ok", {
-        duration: 2000,
-      });
-    }
-    
-  }
+  
 }

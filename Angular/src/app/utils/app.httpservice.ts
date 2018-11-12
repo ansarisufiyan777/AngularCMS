@@ -9,6 +9,9 @@ import { Observable } from 'rxjs/Observable';
 export class HttpService {
     private apiRoot = "http://localhost:8081";
     private url = `${this.apiRoot}/posts`;
+    private urlUser = `${this.apiRoot}/user`;
+    private urlAuth = `${this.apiRoot}/auth`;
+    private urlComment = `${this.apiRoot}/comment`;
     constructor(public snackBar: MatSnackBar, private pushService: PushService, private http: Http, public dialog: MatDialog) {
 
     }
@@ -35,12 +38,26 @@ export class HttpService {
         });
     }
 
-    updatePost(id, column) {
+    upsertUser(user) {
         return Observable.create(observer => {
-            this.http.get(this.url + `?id=${id}&column=${column}`).subscribe(res => {
-                
+            console.log(user);
+            this.http.post(this.urlUser, user).subscribe(res => {
+                console.log(res.text());
+                this.snackBar.open("New user added into the database", "Ok", {
+                    duration: 2000,
+                });
+                observer.next(res.text());
             });
         })
+    }
+
+    authUser(user) {
+        return Observable.create(observer => {
+            this.http.post(this.urlAuth, user).subscribe(res => {
+                console.log(res.text());
+            });
+        });
+
     }
     getPost(id) {
         return Observable.create(observer => {
@@ -49,5 +66,27 @@ export class HttpService {
             });
         });
 
+    }
+
+    getComments(id) {
+        return Observable.create(observer => {
+            this.http.get(this.urlComment+`?id=${id}`).subscribe(res => {
+                observer.next(JSON.parse(res.text()));
+            });
+        });
+
+    }
+
+    upsertComment(comment) {
+        return Observable.create(observer => {
+            console.log(comment);
+            this.http.post(this.urlComment, comment).subscribe(res => {
+                console.log(res.text());
+                this.snackBar.open("New comment added into the database", "Ok", {
+                    duration: 2000,
+                });
+                observer.next(res.text());
+            });
+        })
     }
 }

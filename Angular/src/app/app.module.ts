@@ -18,6 +18,8 @@ import { PostDetailsComponent } from './post/post_details/postdetails.component'
 import { LoginComponent } from './login/login.component';
 import {FlexLayoutModule} from '@angular/flex-layout';
 import { NewPostDialog } from './post/new_post/app.new_post';
+import { PostTags } from './post/post_tags/app.post_tags';
+import { PostComments } from './post/post_comments/post.comments';
 
 @NgModule({
   declarations: [
@@ -27,7 +29,9 @@ import { NewPostDialog } from './post/new_post/app.new_post';
     LoginComponent,
     PostDialog,
     ShareBottomSheet,
-    NewPostDialog
+    NewPostDialog,
+    PostTags,
+    PostComments
   ],
   imports: [
     BrowserModule,

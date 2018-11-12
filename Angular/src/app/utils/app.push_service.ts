@@ -6,25 +6,31 @@ import { MatSnackBar } from '@angular/material';
 @Injectable()
 export class PushService {
   private socket: SocketIOClient.Socket;
+  private commentSocket: SocketIOClient.Socket;
 
   constructor(public snackBar: MatSnackBar) {
-    this.socket = io('http://localhost/postcrud');
-  }
-
-  // EMITTER
-  pushPost(msg) {
-    this.socket.emit('NewPost', { message: msg });
+    this.socket = io('http://localhost/events');
   }
 
   // HANDLER
   onNewPost() {
     return Observable.create(observer => {
-      this.socket.on('NewPost', msg => {
-        console.log("New Post added from socket")        
+      this.socket.on('post', msg => {
+        console.log("New Post added from socket")
         observer.next(msg);
       });
     });
   }
+  // HANDLER
+  onNewComment() {
+    return Observable.create(observer => {
+      this.socket.on('comments', msg => {
+        console.log("New comment added from socket")
+        observer.next(msg);
+      });
+    });
+  }
+
   // HANDLER
   onNewConnect() {
     return Observable.create(observer => {

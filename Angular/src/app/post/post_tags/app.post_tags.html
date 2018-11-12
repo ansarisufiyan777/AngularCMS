@@ -1,0 +1,10 @@
+<div>
+    <mat-form-field>
+      <input matInput (keyup.enter)="addTags($event)" [(ngModel)]="tagValue" placeholder="Add tags">
+    </mat-form-field>
+    <div fxLayout>
+        <mat-chip-list>
+        <mat-chip *ngFor="let p of post.tags?.split(',')" class="remove-tag"> {{p}} <i (click)="removeTag(p)" class="fa fa-close"></i></mat-chip>
+        </mat-chip-list>
+    </div>
+  </div>

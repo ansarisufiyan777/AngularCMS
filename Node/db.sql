@@ -14,3 +14,20 @@ CREATE TABLE postdb.post (
 	likes int8,
 	dislikes int8
 ) ;
+create table postdb.users(
+	user_id bigserial NOT NULL,
+	user_name text,
+	password text,
+	avatar text,
+	datetime timestamp DEFAULT now(),
+	createdby text default 'dba'
+);
+create table postdb.comments(
+	comment_id bigserial NOT NULL,
+	user_name text,
+	message text,
+	post_id text,
+	datetime timestamp DEFAULT now(),
+	createdby text default 'dba'
+);
+

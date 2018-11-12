@@ -36,14 +36,16 @@
       </button>
     </mat-card-actions>
   </mat-card>
-  <div fxFlex="30%">
-    <mat-form-field>
-      <input matInput (keyup.enter)="addTags($event)" [(ngModel)]="tagValue" placeholder="Add tags">
-    </mat-form-field>
-    <div fxLayout>
-        <mat-chip-list>
-        <mat-chip *ngFor="let p of post.tags?.split(',')" class="remove-tag"> {{p}} <i class="fa fa-close"></i></mat-chip>
-        </mat-chip-list>
-    </div>
-  </div>
+  <post-tags fxFlex="30%" [post]="post"></post-tags>
+</div>
+<div 
+ fxLayoutAlign="space-around center" 
+     fxLayout
+     fxLayout.xs="column"
+     fxLayoutAlign="center"
+     fxLayoutGap="10px"
+     fxLayoutGap.xs="0"
+ style="margin-top: 2vh">
+  <post-comment fxFlex='70%'></post-comment>
+  <div fxFlex="30%"></div>
 </div>

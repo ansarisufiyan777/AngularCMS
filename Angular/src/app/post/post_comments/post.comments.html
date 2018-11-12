@@ -1,0 +1,22 @@
+<mat-list *ngFor="let c of comments">
+    <mat-label>
+        {{c.user_name}}
+    </mat-label>
+    <mat-list-item> 
+        {{c.message}} 
+    </mat-list-item>
+    <mat-divider></mat-divider>
+</mat-list>
+
+<div class="comment-form">
+    <mat-form-field class="comment-full-width">
+      <input matInput placeholder="Name" [(ngModel)]="comment.user_name" value="">
+    </mat-form-field>
+  
+    <mat-form-field class="comment-full-width">
+      <textarea matInput [(ngModel)]="comment.message" placeholder="Leave a comment"></textarea>
+    </mat-form-field>
+    <mat-card-actions>
+        <button mat-raised-button (click)="postComment()"  color="primary">comment</button>
+    </mat-card-actions>
+  </div>
