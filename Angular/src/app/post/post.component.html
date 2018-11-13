@@ -1,4 +1,7 @@
 <div *ngIf="showContent; else elseBlock">
+    <div>
+        <post-tags [tags]="tags" [isHomePage]="true"></post-tags>
+    </div>
   <div class="card-deck-container">
     <div *ngFor="let post of posts" class="card-item">
       <mat-card class="post-card">

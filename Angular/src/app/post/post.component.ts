@@ -16,6 +16,7 @@ export class PostComponent implements OnInit {
   pageSize: number = 10;
   lowValue: number = 0;
   highValue: number = 10;
+  tags = "";
   constructor(public snackBar: MatSnackBar, private pushService: PushService, public dialog: MatDialog, private httpService: HttpService, private bottomSheet: MatBottomSheet) { }
 
   ngOnInit() {
@@ -23,6 +24,12 @@ export class PostComponent implements OnInit {
     this.httpService.getPost(undefined).subscribe(postData => {
       this.showContent = true;
       this.posts = postData
+      let tagsArray = [];
+      for(let i in this.posts){
+        tagsArray.push(this.posts[i]["tags"].split(","));
+      }
+      tagsArray = tagsArray.toString().split(",");
+      this.tags = tagsArray.filter((i,p)=>{return tagsArray.indexOf(i) == p;}).toString();
     });
 
     this.pushService.onNewPost().subscribe(data => {
