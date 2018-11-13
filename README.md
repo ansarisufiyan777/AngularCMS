@@ -10,8 +10,7 @@ Run it on **PostgreSQL**
 Add configuration details of the database into index.js
 
 currently setting is default as per the configuration
-
-`
+```
 const config = {
   user: 'postgres',
   database: 'postgres',
@@ -20,8 +19,8 @@ const config = {
   max: 10,
   idleTimeoutMillis: 3000,
 };
+```
 
-`
 
 ## Server setup
 Prerequisites:
