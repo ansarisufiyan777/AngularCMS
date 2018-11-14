@@ -6,15 +6,16 @@ import { Router, ActivatedRoute,ParamMap } from '@angular/router';
 import { switchMap } from 'rxjs/operators';
 import { PushService } from '../../utils/app.push_service';
 import { Title } from '@angular/platform-browser';
+import { PostData } from '../../post.data';
 @Component({
   selector: 'post-details',
   templateUrl: './postdetails.component.html',
   styleUrls: ['./postdetails.component.scss']
 })
 export class PostDetailsComponent implements OnInit {
-  private post = {};
-  private id :any;
-  private tagValue = null;
+  post:PostData;
+  id :any;
+  tagValue = null;
   constructor(private titleService: Title, private pushService: PushService,public snackBar: MatSnackBar,private httpService:HttpService,private bottomSheet: MatBottomSheet,private route: ActivatedRoute,
     private router: Router) { }
 
@@ -24,7 +25,7 @@ export class PostDetailsComponent implements OnInit {
       console.log(`Id of the selected post is ${this.id}`)
       this.httpService.getPost(this.id).subscribe(postData => {
         this.post = postData[0];
-        this.post['views'] = parseInt(this.post['views'])+1;
+        this.post['views'] = (parseInt(this.post['views'])+1).toString();
         this.httpService.upsertPost(this.post).subscribe((res)=>{
           console.log("Views incremented by "+ this.post['views']);
         }) 
@@ -58,7 +59,7 @@ export class PostDetailsComponent implements OnInit {
       console.log("Post DisLiked successfully")
     });
   }
-  openShareBottomSheet($event:any){
+  openShareBottomSheet(){
     this.bottomSheet.open(ShareBottomSheet);
   }
   

@@ -2,6 +2,8 @@
 
 -- DROP TABLE postdb.post
 
+create schema postdb;
+
 CREATE TABLE postdb.post (
 	post_id bigserial DEFAULT nextval('postdb.post_post_id_seq'::regclass) NOT NULL,
 	post_desc text(2147483647),

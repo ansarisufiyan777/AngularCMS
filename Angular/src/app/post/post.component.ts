@@ -10,7 +10,7 @@ import { PushService } from '../utils/app.push_service';
   styleUrls: ['./post.component.scss']
 })
 export class PostComponent implements OnInit {
-  private showContent = false;
+  showContent = false;
   posts: Object[];
   pageIndex: number = 0;
   pageSize: number = 10;

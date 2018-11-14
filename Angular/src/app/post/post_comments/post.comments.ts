@@ -10,9 +10,9 @@ import { MatSnackBar } from "@angular/material";
     styleUrls: ['./post.comments.scss']
 })
 export class PostComments implements OnInit {
-    private comments: CommentData[];
+    comments: CommentData[];
     comment: CommentData = <CommentData>{};
-    private id;
+    id;
     constructor(public snackBar: MatSnackBar,private route: ActivatedRoute,private httpService: HttpService,private pushService:PushService) {
 
     }
